@@ -3,15 +3,14 @@ import java.util.ArrayList;
 public class Cookbook {
 
     // Hold all the meals that are read in from the file
-    private Meal[] meals = new Meal[100];
+    private ArrayList<Meal> meals = new ArrayList<>(100);
     // Hold the next (empty) index in the array
-    private int i = 0;
 
     public void addElementWithStrings(String mealTypeStr, String mealNameStr, String caloriesStr) {
         MealType mealType;
 
         // Do we have room in the array for one more?
-        if (i < meals.length) {
+
 
             // Find the correct enum using a switch? Or use .fromValue() instead?
             switch (mealTypeStr) {
@@ -40,13 +39,11 @@ public class Cookbook {
                 calories = 100;
                 System.out.println("Meal Creation Error: Invalid Calories " + caloriesStr + ", defaulted to 100.");
             }
-            meals[i++] = new Meal(mealType, mealNameStr, calories);
-        } else {
-            System.out.println("Meal Creation Error: Items exceeded system size.  File has " + i + ", while the system can only handle " + meals.length + ".");
+            meals.add(new Meal(mealType, mealNameStr, calories);
         }
-    }
 
-    public ArrayList<Meal>getMeals() {
+
+    public ArrayList<Meal> getMeals() {
         return meals;
     }
 

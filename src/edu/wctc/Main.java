@@ -106,7 +106,7 @@ public class Main {
         cookbook.printByNameSearch(ans);
     }
 
-    private void controlBreak() throws FileNotFoundException{
+    private void doControlBreak() throws FileNotFoundException{
         File file = new File("meals_data.csv");
         Scanner sc = new Scanner(file);
 
