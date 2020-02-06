@@ -10,7 +10,7 @@ public class Main {
     private Scanner keyboard;
     private Cookbook cookbook;
 
-    public Main() {
+    public Main() throws FileNotFoundException {
         keyboard = new Scanner(System.in);
         cookbook = new Cookbook();
 
@@ -27,7 +27,7 @@ public class Main {
         runMenu();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         new Main();
     }
 
@@ -42,7 +42,7 @@ public class Main {
         System.out.print("Please Enter your Choice: ");
     }
 
-    private void runMenu() {
+    private void runMenu() throws FileNotFoundException {
         boolean userContinue = true;
 
         while (userContinue) {
@@ -60,7 +60,7 @@ public class Main {
                     searchByName();
                     break;
                 case "4":
-                    // doControlBreak();
+                    cookbook.doControlBreak();
                     break;
                 case "5":
                     userContinue = false;
@@ -104,49 +104,5 @@ public class Main {
         System.out.print("Please Enter Value: ");
         String ans = keyboard.nextLine();
         cookbook.printByNameSearch(ans);
-    }
-
-    private void doControlBreak() throws FileNotFoundException{
-        File file = new File("meals_data.csv");
-        Scanner sc = new Scanner(file);
-
-        if (file.exists()){
-            System.out.println("Meal Type\\tTotal\\tMean\\tMin\\tMax\\tMedian");
-            ArrayList<Integer> calories = new ArrayList<>();
-            String currentTypeMeal = "";
-            String nextTypeMeal = null;
-            int totalCalories = 0;
-            int median = (calories.size()/2);
-            while(sc.hasNext()){
-                String line = sc.nextLine();
-                String []meal = line.split(",");
-                nextTypeMeal = meal[0];
-                String mealCalories = meal[2];
-
-                if (nextTypeMeal.equalsIgnoreCase(currentTypeMeal)|| currentTypeMeal.equalsIgnoreCase("")){
-                    calories.add(Integer.parseInt(mealCalories));
-                    if (currentTypeMeal.equalsIgnoreCase("")){
-                        currentTypeMeal = nextTypeMeal;
-                    }
-                }else {
-                    for(int i = 0; i < (calories.size()-1); i++){
-                        for (int j = 0; j < calories.size()-i-1; j++){
-                            if (calories.get(j).compareTo(calories.get(j+1))>0){
-                                int temp = calories.get(j);
-                                calories.set(j, calories.get(j+1));
-                                calories.set(j+1, temp);
-                            }
-                        }
-                    }
-                    for (int i = 0; i < calories.size(); i++){
-                        totalCalories += calories.get(i);
-                    }
-                    System.out.println(currentTypeMeal + "\n" + totalCalories + "\n" + (totalCalories/(calories.size())) + "\n" + calories.get(0) + "\n" + calories.get(calories.size()));
-                    currentTypeMeal = nextTypeMeal;
-                    calories.clear();
-                    calories.add(Integer.parseInt(mealCalories));
-                }
-            }
-        }
     }
 }
